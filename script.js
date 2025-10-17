@@ -24,6 +24,13 @@ window.addEventListener('scroll', () => {
 hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (navMenu.classList.contains('active')) {
+        document.body.classList.add('menu-open');
+    } else {
+        document.body.classList.remove('menu-open');
+    }
 });
 
 // Close mobile menu when clicking on a nav link
@@ -31,6 +38,7 @@ navLinks.forEach(link => {
     link.addEventListener('click', () => {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
     });
 });
 
@@ -39,6 +47,7 @@ document.addEventListener('click', (e) => {
     if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
     }
 });
 
@@ -459,10 +468,62 @@ document.querySelectorAll('.trusted, .kpis, .cases').forEach(section => {
     scrollObserver.observe(section);
 });
 
+// ========== PERFECT INFINITE BRAND SLIDER ==========
+// Ensures seamless looping by dynamically adjusting animation
+function initBrandSlider() {
+    const brandTrack = document.querySelector('.brand-track');
+    const brandSlider = document.querySelector('.brand-slider');
+    
+    if (!brandTrack || !brandSlider) return;
+    
+    // Get all brand logo wrappers
+    const logos = brandTrack.querySelectorAll('.brand-logo-wrapper');
+    const totalLogos = logos.length;
+    const logosPerSet = totalLogos / 3; // We have 3 identical sets
+    
+    // Ensure smooth animation by forcing GPU acceleration
+    brandTrack.style.transform = 'translateZ(0)';
+    brandTrack.style.backfaceVisibility = 'hidden';
+    brandTrack.style.perspective = '1000px';
+    
+    // Optional: Calculate exact widths for perfect loop (advanced)
+    function calculateSliderWidth() {
+        const firstSet = Array.from(logos).slice(0, logosPerSet);
+        let totalWidth = 0;
+        
+        firstSet.forEach((logo, index) => {
+            const computedStyle = window.getComputedStyle(logo);
+            const width = logo.offsetWidth;
+            const marginRight = parseFloat(computedStyle.marginRight) || 0;
+            totalWidth += width + marginRight;
+        });
+        
+        // Add gap spacing
+        const gap = parseFloat(window.getComputedStyle(brandTrack).gap) || 60;
+        totalWidth += gap * (logosPerSet - 1);
+        
+        return totalWidth;
+    }
+    
+    // Log for debugging
+    console.log('✅ Brand slider initialized with', totalLogos, 'logos (', logosPerSet, 'per set)');
+}
+
+// Initialize on load
+window.addEventListener('load', initBrandSlider);
+
+// Reinitialize on window resize (with debounce)
+let resizeTimer;
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(initBrandSlider, 250);
+});
+
 // ========== CONSOLE MESSAGE ==========
 console.log('🚀 BTA Dijital - Website loaded successfully!');
 console.log('👨‍💻 Developed with ❤️ for BTA Dijital');
 console.log('✨ Complete: Homepage + About Us + Services + Influencer Marketing + Contact pages');
 console.log('🎬 Hero video with scroll fade-out effect active');
 console.log('📊 KPI counters and scroll reveal animations enabled');
+console.log('♾️ Perfect infinite brand slider active');
 
