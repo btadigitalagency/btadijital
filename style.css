@@ -267,19 +267,13 @@ html {
 /* Video Fade-in Animation */
 @keyframes videoFadeIn {
     to {
-        opacity: 0.35; /* Subtle video visibility for text readability */
+        opacity: 1; /* Full video visibility */
     }
 }
 
 /* Video Overlay for Text Readability */
 .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(0,166,118,0.25), rgba(0,0,0,0.75));
-    z-index: -1;
+    display: none; /* Overlay disabled */
 }
 
 /* Hero Content */

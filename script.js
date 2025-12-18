@@ -404,9 +404,9 @@ window.addEventListener('scroll', () => {
     // Apply opacity dynamically to hero container
     hero.style.opacity = opacity;
     
-    // Fade video more subtly (respecting max 35% opacity)
+    // Fade video with scroll
     if (video) {
-        video.style.opacity = Math.min(opacity * 0.35, 0.35);
+        video.style.opacity = opacity;
     }
     
     // Fade content text
