@@ -55,6 +55,7 @@ img, video {
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 .container {
@@ -1013,11 +1014,28 @@ section + section {
     position: relative;
     min-height: 70vh;
     display: flex;
+    justify-content: center;
     align-items: center;
     background: radial-gradient(circle at right bottom, rgba(0,166,118,0.08) 0%, transparent 70%);
-    padding-top: 140px;
-    padding-bottom: 100px;
+    padding: 140px 20px 100px;
     overflow: hidden;
+}
+
+.page-hero > .container {
+    width: 100%;
+}
+
+/* Floating decorative shape */
+.hero-shape {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: 10%;
+    top: 20%;
+    background: radial-gradient(circle, rgba(0,166,118,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .page-hero-content {
@@ -3381,6 +3399,16 @@ section + section {
         min-height: 50vh;
         padding-top: 100px;
         padding-bottom: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    /* Smaller decorative shape on tablet */
+    .hero-shape {
+        width: 100px;
+        height: 100px;
+        right: 5%;
+        opacity: 0.5;
     }
     
     .page-hero-title {
@@ -3763,6 +3791,24 @@ section + section {
         min-height: 40vh;
         padding-top: 90px;
         padding-bottom: 50px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    /* Hide decorative shape on mobile to prevent overflow */
+    .hero-shape {
+        display: none;
+    }
+    
+    .page-hero > .container {
+        width: 100%;
+        padding: 0;
+    }
+    
+    .page-hero-content {
+        max-width: 100%;
+        padding: 0;
+        width: 100%;
     }
     
     .page-hero-title {
